@@ -4,16 +4,18 @@ import fdb
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
-host = app.config['DB_HOST']
-database = app.config['DB_NAME']
-user = app.config['DB_USER']
-password = app.config['DB_PASSWORD']
+
+host = app.config.get('DB_HOST')
+database = app.config.get('DB_NAME')
+user = app.config.get('DB_USER')
+password = app.config.get('DB_PASSWORD')
 
 try:
     con = fdb.connect(host=host, database=database, user=user, password=password)
-    print("Conexão estabelecida com sucesso")
+    print("Conexão com o banco de dados estabelecida com sucesso!")
 except Exception as e:
-    print(f"Erro {e}")
+    print(f"Erro ao conectar ao banco de dados: {e}")
+
 
 from view import *
 
